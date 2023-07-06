@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <title>Document</title>
+    <style>
+        body {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.438), rgba(0, 0, 0, 0.158)), url(parallax-img-scaled-1.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        .nav-A {
+            background-color: rgba(0, 0, 0, 0.514);
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .nav-h1 {
+            font-size: large;
+            color: white;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            margin-top: 10px;
+            flex: 1;
+            margin-left: 20px;
+        }
+
+        .nav-signUP {
+            display: none;
+        }
+
+        .main {
+            display: grid;
+            grid-template-columns: auto auto auto auto auto auto auto;
+        }
+
+        .form {
+            border: 2px solid rgba(0, 0, 0, 0.685);
+            grid-column: 4/5;
+            margin-top: 50px;
+            background-color: rgba(0, 0, 0, 0.747);
+        }
+
+        .form-input {
+            display: block;
+            width: 60%;
+            height: 35px;
+            margin: auto;
+            margin-top: 40px;
+            border-radius: 20px;
+            padding-left: 20px;
+        }
+
+        .form-btn {
+            display: block;
+            margin: auto;
+            margin-top: 50px;
+            margin-bottom: 60px;
+        }
+
+        .from-signIn {
+            display: none;
+        }
+
+        .error {
+            margin-top: 10px;
+            color: red;
+            margin-left: 22%;
+            visibility: hidden;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+
+        <div class="nav-A">
+
+            <h1 class="nav-h1">For The Future</h1>
+
+            <button onclick="navSignIn()" id="navSignIn" class="btn btn-primary nav-btn nav-signIn">Sign IN</button>
+
+            <button onclick="navSignUp()" id="navSignUp" class="btn btn-primary nav-btn nav-signUP">Sign UP</button>
+
+        </div>
+
+    </nav>
+
+    <div class="main">
+
+        <div class="form">
+
+            <input id="Name" class="form-input" type="text" placeholder="Name">
+
+            <input id="F-Name" class="form-input" type="text" placeholder="Father Name">
+
+            <input id="Age" class="form-input" type="number" placeholder="Age">
+
+            <input id="Email" class="form-input" type="email" placeholder="Email">
+
+            <input id="Password" class="form-input" type="password" placeholder="Password">
+
+            <p id="error" class="error">0</p>
+
+            <button onclick="formsignUp()" id="fromsignUp" class="btn btn-success form-btn from-signUp">Sign UP</button>
+
+            <button onclick="formsignIn()" id="fromsignIn" class="btn btn-success form-btn from-signIn">Sign In</button>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        let arr = [];
+
+        function clr() {
+            document.getElementById("Name").value = "";
+            document.getElementById("F-Name").value = "";
+            document.getElementById("Age").value = "";
+            document.getElementById("Email").value = "";
+            document.getElementById("Password").value = "";
+        }
+
+        function navSignIn() {
+            document.getElementById("Name").style.display = "none";
+            document.getElementById("F-Name").style.display = "none";
+            document.getElementById("Age").style.display = "none";
+            document.getElementById("navSignIn").style.display = "none";
+            document.getElementById("navSignUp").style.display = "block";
+            document.getElementById("fromsignUp").style.display = "none";
+            document.getElementById("fromsignIn").style.display = "block";
+            document.getElementById("error").style.visibility = "hidden";
+            clr();
+        }
+
+        function navSignUp() {
+            document.getElementById("Name").style.display = "block";
+            document.getElementById("F-Name").style.display = "block";
+            document.getElementById("Age").style.display = "block";
+            document.getElementById("navSignIn").style.display = "block";
+            document.getElementById("navSignUp").style.display = "none";
+            document.getElementById("fromsignUp").style.display = "block";
+            document.getElementById("fromsignIn").style.display = "none";
+            document.getElementById("error").style.visibility = "hidden";
+            clr();
+        }
+
+        function formsignUp() {
+            let name = document.getElementById("Name").value;
+            let Fname = document.getElementById("F-Name").value;
+            let age = document.getElementById("Age").value;
+            let email = document.getElementById("Email").value;
+            let password = document.getElementById("Password").value;
+
+            if (name == "" || Fname == "" || age == "" || email == "" || password == "") {
+                document.getElementById("error").style.visibility = "visible";
+                document.getElementById("error").innerText = "Fill The Form";
+            }
+            else {
+                let user = arr.find(obj => obj.Email == document.getElementById("Email").value);
+                if (user) {
+                    document.getElementById("error").style.visibility = "visible";
+                    document.getElementById("error").innerText = "Email Already Exists";
+                }
+                else {
+                    arr.push({
+                        Name: name,
+                        FName: Fname,
+                        Age: age,
+                        Email: email,
+                        Password: password
+                    })
+                    console.log(arr);
+                    clr()
+                    document.getElementById("Name").style.display = "none";
+                    document.getElementById("F-Name").style.display = "none";
+                    document.getElementById("Age").style.display = "none";
+                    document.getElementById("navSignIn").style.display = "none";
+                    document.getElementById("navSignUp").style.display = "block";
+                    document.getElementById("fromsignUp").style.display = "none";
+                    document.getElementById("fromsignIn").style.display = "block";
+                }
+            }
+        }
+
+        function formsignIn() {
+            let user = arr.find(obj => obj.Email == document.getElementById("Email").value && obj.Password == document.getElementById("Password").value);
+            if (user) {
+                document.getElementById("error").innerText = "Sign In";
+                document.getElementById("error").style.visibility = "visible";
+                clr();
+            }
+            else {
+                document.getElementById("error").innerText = "Wrong ID or Password";
+                document.getElementById("error").style.visibility = "visible";
+            }
+        }
+
+    </script>
+</body>
+
+</html>
